@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOVECRYPT</title>
+<style>
+body{margin:0;background:#000;color:#00ff66;font-family:Consolas,monospace;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
+.terminal{width:90%;max-width:720px;background:#000;border:2px solid #00ff66;padding:24px;box-shadow:0 0 20px #00ff66;z-index:1}
+input,button{width:100%;padding:12px;margin-top:14px;font-family:inherit}
+input{background:#000;color:#00ff66;border:1px solid #00ff66}
+button{background:#00ff66;color:#000;border:none;font-weight:bold;cursor:pointer}
+button:hover{box-shadow:0 0 15px #00ff66}
+#message{display:none;margin-top:20px}
+pre{white-space:pre-wrap;color:#00ff66}
+.heart{position:fixed;bottom:-20px;animation:float 5s linear;pointer-events:none;z-index:999}
+@keyframes float{from{transform:translateY(0);opacity:1}to{transform:translateY(-110vh);opacity:0}}
+</style>
+</head>
+<body>
+<div class="terminal">
+<h2>LOVECRYPT SECURE TERMINAL</h2>
+<p>> Secure encrypted message detected.</p>
+<p>> Authorization required.</p>
+<input id="key" type="password" placeholder="Enter Decryption Key">
+<button onclick="unlock()">Decrypt</button>
+<div id="status"></div>
+<div id="message"><pre id="typed"></pre></div>
+</div>
+<script>
+const fullMessage=`❤️ ACCESS GRANTED ❤️
 
+Happy Girlfriend's Day, My Love.
+
+You are the only person who has permission to unlock my heart.
+
+Thank you for making my life more beautiful every day.
+
+Connection Status:
+FOREVER ❤️
+
+— Your Favorite Hacker`;
+
+function typeText(){
+ let i=0,out=document.getElementById("typed");
+ out.textContent="";
+ const t=setInterval(()=>{
+   out.textContent+=fullMessage.charAt(i++);
+   if(i>=fullMessage.length) clearInterval(t);
+ },35);
+}
+function unlock(){
+ const key=document.getElementById("key").value.trim();
+ if(key==="ILOVEYOU"){
+   document.getElementById("status").textContent="Decrypting... ██████████ 100%";
+   setTimeout(()=>{
+      document.getElementById("message").style.display="block";
+      typeText();
+   },1500);
+ }else{
+   document.getElementById("status").innerHTML="<span style='color:red'>ACCESS DENIED</span>";
+ }
+}
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.textContent="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(20+Math.random()*20)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},500);
+</script>
+</body>
+</html>
